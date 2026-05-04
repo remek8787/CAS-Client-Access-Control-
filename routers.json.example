@@ -1,0 +1,10 @@
+[
+  {
+    "name": "RO EXAMPLE",
+    "ip": "192.0.2.1",
+    "username": "robot",
+    "password": "CHANGE_ME",
+    "port": 8728,
+    "ssl": false
+  }
+]

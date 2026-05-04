@@ -1,0 +1,8 @@
+/users.json
+/routers.json
+/log_aktivitas.txt
+*.zip
+*.bak
+backup_*
+.env
+.bridge_token
