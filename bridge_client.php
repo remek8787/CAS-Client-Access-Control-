@@ -17,21 +17,14 @@ function bridge_request($method, $path, $payload = null) {
             'header' => $headers,
         ]
     ];
-    if ($payload !== null) {
-        $options['http']['content'] = json_encode($payload);
-    }
+    if ($payload !== null) $options['http']['content'] = json_encode($payload);
     $context = stream_context_create($options);
     $raw = @file_get_contents($url, false, $context);
-    if ($raw === false) {
-        return ['ok' => false, 'error' => 'bridge_unreachable', 'url' => $url];
-    }
+    if ($raw === false) return ['ok' => false, 'error' => 'bridge_unreachable', 'url' => $url];
     $json = json_decode($raw, true);
-    if (!is_array($json)) {
-        return ['ok' => false, 'error' => 'bridge_invalid_json', 'raw' => $raw];
-    }
+    if (!is_array($json)) return ['ok' => false, 'error' => 'bridge_invalid_json', 'raw' => $raw];
     return $json;
 }
-
 function bridge_get($path) { return bridge_request('GET', $path); }
 function bridge_post($path, $payload = []) { return bridge_request('POST', $path, $payload); }
 function bridge_routers() { $res = bridge_get('/routers'); return !empty($res['ok']) ? ($res['data'] ?? []) : []; }

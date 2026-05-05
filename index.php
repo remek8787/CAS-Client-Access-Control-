@@ -50,7 +50,7 @@ if ($activeRouter) {
     <div class="cas-hero">
         <span class="cas-badge">Bridge Mode Aktif</span>
         <h2>Client Access Control</h2>
-        <p>Panel modern untuk kontrol akses pelanggan PPPoE. Hosting mengirim instruksi ke bridge Ubuntu, lalu bridge meneruskan ke MikroTik API.</p>
+        <p>Kelola akses pelanggan PPPoE dari satu panel: pantau user aktif, ubah profile, isolir, buka isolir, disconnect user, dan kontrol VLAN/router dengan cepat.</p>
     </div>
 
     <div class="cas-card mb-3">
