@@ -23,6 +23,16 @@ cas_page_start([
 ]);
 ?>
 
+<?php if (!empty($_GET['msg'])): ?>
+    <div class="cas-alert cas-alert-success mb-3">✅ <?= h($_GET['msg']) ?></div>
+<?php elseif (isset($_GET['ubah'])): ?>
+    <div class="cas-alert cas-alert-success mb-3">✅ Berhasil merubah profile.</div>
+<?php elseif (isset($_GET['isolir'])): ?>
+    <div class="cas-alert cas-alert-success mb-3">✅ Berhasil mengisolir user.</div>
+<?php elseif (isset($_GET['disconnect'])): ?>
+    <div class="cas-alert cas-alert-success mb-3">✅ Berhasil disconnect user aktif.</div>
+<?php endif; ?>
+
 <div class="cas-card cas-card-lg mb-3">
     <form method="POST" class="cas-router-panel">
         <select name="router" class="form-select" required>
