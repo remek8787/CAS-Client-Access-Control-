@@ -1,0 +1,28 @@
+<?php
+require('auth.php');
+require('bridge_client.php');
+require('includes/_layout.php');
+require('includes/_cas_data.php');
+$routers = bridge_routers();
+$routerId = cas_current_router_id($routers);
+$data = cas_load_dashboard_data($routerId, $routers);
+$activeRouter = $data['router'];
+$isolirUsers = [];
+foreach ($data['secrets'] as $user) { if (($user['profile'] ?? '') === 'ISOLIREBILLING') { $isolirUsers[] = $user; } }
+$GLOBALS['cas_current_page'] = 'isolir';
+cas_page_start([
+    'page' => 'isolir',
+    'title' => 'User ISOLIREBILLING',
+    'subtitle' => 'Halaman khusus pelanggan isolir. Lebih cepat dicek tanpa membuka seluruh tabel dashboard.',
+    'kicker' => $activeRouter ? 'Router: ' . ($activeRouter['name'] ?? 'Router') : 'Pilih Router',
+    'icon' => '🔒',
+    'extraHead' => '<link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet"><script src="https://code.jquery.com/jquery-3.6.0.min.js"></script><script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script><script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>'
+]);
+?>
+<div class="cas-card mb-3"><div class="cas-router-panel"><a href="index.php" class="btn btn-outline-secondary">← Dashboard</a><a href="ppp_users.php" class="btn btn-outline-primary">📋 PPPoE Users</a><a href="active_users.php" class="btn btn-outline-success">⚡ User Aktif</a><?= cas_cache_badge($data) ?></div></div>
+<?php if (!$activeRouter): ?><div class="cas-alert cas-alert-info">Pilih router dari dashboard dulu.</div><?php elseif (!empty($data['error'])): ?><div class="cas-alert cas-alert-danger">❌ <?= h($data['error']) ?></div><?php else: ?>
+<div class="cas-card cas-table-card"><div class="cas-table-head cas-grad-red"><h5>🔒 User ISOLIREBILLING</h5><span><?= h(count($isolirUsers)) ?> isolir</span></div><div class="cas-table-wrap"><table id="isolirTable" class="table table-hover table-striped align-middle"><thead><tr><th>Username</th><th>Profile</th><th>Aksi Buka Isolir</th></tr></thead><tbody>
+<?php foreach ($isolirUsers as $user): ?><tr><td><strong><?= h($user['name'] ?? '-') ?></strong></td><td><?= h($user['profile'] ?? '-') ?></td><td><form action="change_profile.php" method="POST" class="d-flex flex-wrap gap-2"><input type="hidden" name="name" value="<?= h($user['name'] ?? '') ?>"><input type="hidden" name="router" value="<?= h($routerId) ?>"><select name="profile" class="form-select form-select-sm" style="max-width:240px"><?php foreach ($data['profiles'] as $prof): ?><option value="<?= h($prof['name'] ?? '') ?>" <?= ($prof['name'] ?? '') === ($user['profile'] ?? '') ? 'selected' : '' ?>><?= h($prof['name'] ?? '') ?></option><?php endforeach; ?></select><button class="btn btn-sm btn-primary"><span class="cas-submit-spinner"></span>Ubah Profile</button></form></td></tr><?php endforeach; ?>
+</tbody></table></div></div>
+<?php endif; ?>
+<?php cas_page_end('<script>$(function(){ $("#isolirTable").DataTable({pageLength:25,order:[],language:{search:"Cari:",lengthMenu:"Tampilkan _MENU_ data",zeroRecords:"Tidak ditemukan",info:"Menampilkan _START_ - _END_ dari _TOTAL_ data",infoEmpty:"Tidak ada data",paginate:{next:"→",previous:"←"}}});});</script>'); ?>

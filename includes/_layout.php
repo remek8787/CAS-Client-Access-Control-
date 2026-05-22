@@ -3,6 +3,9 @@ if (!function_exists('cas_nav_items')) {
     function cas_nav_items() {
         return [
             ['key' => 'dashboard', 'label' => 'Dashboard', 'href' => 'index.php', 'icon' => '📊'],
+            ['key' => 'pppoe', 'label' => 'PPPoE', 'href' => 'ppp_users.php', 'icon' => '📋'],
+            ['key' => 'active', 'label' => 'Aktif', 'href' => 'active_users.php', 'icon' => '⚡'],
+            ['key' => 'isolir', 'label' => 'Isolir', 'href' => 'isolir_users.php', 'icon' => '🔒'],
             ['key' => 'router', 'label' => 'Router', 'href' => 'manage_routers.php', 'icon' => '📡'],
             ['key' => 'vlan', 'label' => 'VLAN', 'href' => 'manage_vlan.php', 'icon' => '🌐'],
             ['key' => 'users', 'label' => 'Pengguna', 'href' => 'tambah_user.php', 'icon' => '👥'],
