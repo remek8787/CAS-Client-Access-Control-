@@ -64,27 +64,27 @@ cas_page_start([
 <?php endif; ?>
 
 <div class="cas-grid mb-3">
-    <div class="cas-card" style="grid-column:span 4"><div class="cas-stat"><div class="cas-stat-icon cas-grad-blue">👥</div><div><strong><?= h($total) ?></strong><span>Total User</span></div></div></div>
-    <div class="cas-card" style="grid-column:span 4"><div class="cas-stat"><div class="cas-stat-icon cas-grad-green">⚡</div><div><strong><?= h($pppActiveTotal) ?></strong><span>User Aktif</span></div></div></div>
-    <div class="cas-card" style="grid-column:span 4"><div class="cas-stat"><div class="cas-stat-icon cas-grad-red">🔒</div><div><strong><?= h($isolirCount) ?></strong><span>User Isolir</span></div></div></div>
+    <a class="cas-card cas-stat-link" href="#secrets-section" style="grid-column:span 4" aria-label="Lihat total user PPPoE"><div class="cas-stat"><div class="cas-stat-icon cas-grad-blue">👥</div><div><strong><?= h($total) ?></strong><span>Total User</span><small>Lihat daftar PPPoE</small></div></div></a>
+    <a class="cas-card cas-stat-link" href="#active-section" style="grid-column:span 4" aria-label="Lihat user aktif"><div class="cas-stat"><div class="cas-stat-icon cas-grad-green">⚡</div><div><strong><?= h($pppActiveTotal) ?></strong><span>User Aktif</span><small>Lihat yang online</small></div></div></a>
+    <a class="cas-card cas-stat-link cas-stat-link-danger" href="#isolir-section" style="grid-column:span 4" aria-label="Lihat user isolir"><div class="cas-stat"><div class="cas-stat-icon cas-grad-red">🔒</div><div><strong><?= h($isolirCount) ?></strong><span>User Isolir</span><small>Klik untuk cek isolir</small></div></div></a>
 </div>
 
 <?php if ($activeRouter && !$connectError): ?>
-<div class="cas-card cas-table-card mb-4">
+<div class="cas-card cas-table-card mb-4" id="secrets-section">
     <div class="cas-table-head cas-grad-blue"><h5>📋 Daftar PPPoE Users</h5><span><?= h($total) ?> secret</span></div>
     <div class="cas-table-wrap"><table id="secretsTable" class="table table-hover table-striped align-middle"><thead><tr><th>Username</th><th>Profile</th><th>Last Logout</th><th>Aksi</th></tr></thead><tbody>
     <?php foreach ($pppSecrets as $user): ?><tr><td><strong><?= h($user['name'] ?? '-') ?></strong></td><td><?= h($user['profile'] ?? '-') ?></td><td><?= h($user['last-logged-out'] ?? '-') ?></td><td><form action="change_profile.php" method="POST" class="d-flex flex-wrap gap-2"><input type="hidden" name="name" value="<?= h($user['name'] ?? '') ?>"><input type="hidden" name="router" value="<?= h($routerId) ?>"><select name="profile" class="form-select form-select-sm" style="max-width:240px"><?php foreach ($pppProfiles as $prof): ?><option value="<?= h($prof['name'] ?? '') ?>" <?= ($prof['name'] ?? '') === ($user['profile'] ?? '') ? 'selected' : '' ?>><?= h($prof['name'] ?? '') ?></option><?php endforeach; ?></select><button class="btn btn-sm btn-primary"><span class="cas-submit-spinner"></span>Ubah</button></form><form action="isolir_user.php" method="POST" class="mt-2"><input type="hidden" name="username" value="<?= h($user['name'] ?? '') ?>"><input type="hidden" name="router" value="<?= h($routerId) ?>"><button class="btn btn-sm btn-danger" onclick="return confirm('Isolir user ini?')"><span class="cas-submit-spinner"></span>🔒 Isolasi</button></form></td></tr><?php endforeach; ?>
     </tbody></table></div>
 </div>
 
-<div class="cas-card cas-table-card mb-4">
+<div class="cas-card cas-table-card mb-4" id="active-section">
     <div class="cas-table-head cas-grad-green"><h5>⚡ User Aktif</h5><span><?= h($pppActiveTotal) ?> online</span></div>
     <div class="cas-table-wrap"><table id="activeTable" class="table table-hover table-striped align-middle"><thead><tr><th>Username</th><th>IP</th><th>Uptime</th><th>Aksi</th></tr></thead><tbody>
     <?php foreach ($pppActive as $u): ?><tr><td><strong><?= h($u['name'] ?? '-') ?></strong></td><td><?= h($u['address'] ?? '-') ?></td><td><?= h($u['uptime'] ?? '-') ?></td><td><form action="disconnect_user.php" method="POST"><input type="hidden" name=".id" value="<?= h($u['.id'] ?? '') ?>"><input type="hidden" name="router" value="<?= h($routerId) ?>"><button class="btn btn-sm btn-danger" onclick="return confirm('Putuskan koneksi user ini?')"><span class="cas-submit-spinner"></span>Putuskan</button></form></td></tr><?php endforeach; ?>
     </tbody></table></div>
 </div>
 
-<div class="cas-card cas-table-card">
+<div class="cas-card cas-table-card" id="isolir-section">
     <div class="cas-table-head cas-grad-red"><h5>🔒 User ISOLIREBILLING</h5><span><?= h($isolirCount) ?> isolir</span></div>
     <div class="cas-table-wrap"><table id="isolirTable" class="table table-hover table-striped align-middle"><thead><tr><th>Username</th><th>Profile</th><th>Aksi</th></tr></thead><tbody>
     <?php foreach ($pppSecrets as $user): ?><?php if (($user['profile'] ?? '') === 'ISOLIREBILLING'): ?><tr><td><strong><?= h($user['name'] ?? '-') ?></strong></td><td><?= h($user['profile'] ?? '-') ?></td><td><form action="change_profile.php" method="POST" class="d-flex flex-wrap gap-2"><input type="hidden" name="name" value="<?= h($user['name'] ?? '') ?>"><input type="hidden" name="router" value="<?= h($routerId) ?>"><select name="profile" class="form-select form-select-sm" style="max-width:240px"><?php foreach ($pppProfiles as $prof): ?><option value="<?= h($prof['name'] ?? '') ?>" <?= ($prof['name'] ?? '') === ($user['profile'] ?? '') ? 'selected' : '' ?>><?= h($prof['name'] ?? '') ?></option><?php endforeach; ?></select><button class="btn btn-sm btn-primary"><span class="cas-submit-spinner"></span>Ubah</button></form></td></tr><?php endif; ?><?php endforeach; ?>
