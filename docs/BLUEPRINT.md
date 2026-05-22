@@ -21,12 +21,16 @@ Hosting CAS PHP -> Ubuntu Bridge API -> MikroTik RouterOS API
 - Ubuntu bridge berada di `/home/ananta/apps/cas-mikrotik-bridge`.
 - Service bridge: `cas-mikrotik-bridge.service`.
 - Bridge listen lokal di `127.0.0.1:9077` dan dipublish nginx lewat `/cas-bridge/`.
+- Public proxy/bridge URL aktif memakai IP publik Ubuntu: `http://103.196.85.88/cas-bridge/`.
+- Health check publik: `GET http://103.196.85.88/cas-bridge/health` mengembalikan JSON `{"ok": true, "service": "cas-mikrotik-bridge", "version": "1.0"}`.
+- Catatan: endpoint bridge mendukung `GET/POST` sesuai route; `HEAD` ke root bisa `501` dan tidak dianggap gagal.
 - Service lain di Ubuntu, terutama Ookla `8080/5060` dan Hermes `9119`, tidak boleh disentuh kecuali ada instruksi eksplisit.
 
 ## Live Context
 
 - Hosting: `https://cas.dentasejahteragroup.my.id/`
-- Ubuntu bridge: `103.196.85.88`
+- Ubuntu bridge/server proxy: `103.196.85.88`
+- Public bridge path: `http://103.196.85.88/cas-bridge/`
 - Router aktif awal: `RO DSG FROM XL`
 - MikroTik target awal: `103.196.85.2:29301`
 - Identity terbaca: `RO-DSG-CORE SMKL`
@@ -83,3 +87,4 @@ Branch utama: `main`.
 - AJAX add/edit/delete user sementara sukses dan user sementara dihapus.
 - `users.json` dan `routers.json` HTTP 403 dari publik.
 - Bridge service active: `systemctl is-active cas-mikrotik-bridge.service`.
+- Public bridge health via IP publik returns ok: `curl http://103.196.85.88/cas-bridge/health`.

@@ -8,6 +8,21 @@ Arsitektur live:
 Hosting CAS PHP -> Ubuntu Bridge API -> MikroTik RouterOS API
 ```
 
+Public proxy/bridge aktif memakai IP publik Ubuntu:
+
+```text
+http://103.196.85.88/cas-bridge/
+```
+
+Health check:
+
+```bash
+curl http://103.196.85.88/cas-bridge/health
+# {"ok": true, "service": "cas-mikrotik-bridge", "version": "1.0"}
+```
+
+Catatan: endpoint bridge memakai `GET/POST` sesuai route; `HEAD` ke root bisa mengembalikan `501` dan bukan indikator bridge mati.
+
 ## Deskripsi Dashboard
 
 Kelola akses pelanggan PPPoE dari satu panel: pantau user aktif, ubah profile, isolir, buka isolir, disconnect user, dan kontrol VLAN/router dengan cepat.
@@ -59,3 +74,4 @@ Gunakan `.htaccess` di hosting untuk mencegah akses langsung file sensitif.
 4. Buat `.env` dari `bridge/.env.example`.
 5. Set `bridge_client.php` dengan base URL dan token live.
 6. Pastikan MikroTik mengizinkan IP Ubuntu bridge mengakses port API.
+7. Verifikasi public proxy dari luar server: `curl http://103.196.85.88/cas-bridge/health`.
