@@ -6,3 +6,5 @@
 backup_*
 .env
 .bridge_token
+
+backup-pre-*
