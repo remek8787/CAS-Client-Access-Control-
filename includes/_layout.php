@@ -68,7 +68,7 @@ if (!function_exists('cas_page_start')) {
     <title><?= cas_h($title) ?> - CAS</title>
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="cas-theme.css?v=20260522-modern1" rel="stylesheet">
+    <link href="cas-theme.css?v=20260523-premium1" rel="stylesheet">
     <?= $extraHead ?>
 </head>
 <body class="cas-body">
@@ -87,6 +87,11 @@ if (!function_exists('cas_page_start')) {
                 <a href="logout.php" class="btn btn-danger">Logout</a>
             </div>
         </div>
+        <div class="cas-command-strip" aria-label="Status ringkas CAS">
+            <div class="cas-command-chip success"><span class="cas-command-icon">●</span><div><strong>Bridge-first workflow</strong><span>Panel tetap mengikuti arsitektur CAS → Bridge → MikroTik</span></div></div>
+            <div class="cas-command-chip"><span class="cas-command-icon">↔</span><div><strong>Responsive control</strong><span>Nyaman untuk operator desktop maupun mobile</span></div></div>
+            <div class="cas-command-chip danger"><span class="cas-command-icon">!</span><div><strong>Aksi kritikal jelas</strong><span>Isolir, disconnect, VLAN tetap butuh konfirmasi</span></div></div>
+        </div>
         <?php
     }
 }
@@ -98,8 +103,8 @@ if (!function_exists('cas_page_end')) {
     <?php cas_render_bottom_nav($GLOBALS['cas_current_page'] ?? ''); ?>
 </div>
 <div class="cas-toast-zone" id="casToastZone"></div>
-<script src="includes/_toast.js?v=20260522-modern1"></script>
-<script src="includes/_loader.js?v=20260522-modern1"></script>
+<script src="includes/_toast.js?v=20260523-premium1"></script>
+<script src="includes/_loader.js?v=20260523-premium1"></script>
 <?= $extraScripts ?>
 </body>
 </html>

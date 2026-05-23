@@ -33,6 +33,24 @@ cas_page_start([
     <div class="cas-alert cas-alert-success mb-3">✅ Berhasil disconnect user aktif.</div>
 <?php endif; ?>
 
+<section class="cas-hero-panel">
+    <div class="cas-card cas-card-lg cas-hero-copy">
+        <span class="cas-page-kicker">🧭 Operation Cockpit</span>
+        <h2 class="cas-hero-title">Kontrol pelanggan PPPoE dari satu layar yang ringan.</h2>
+        <p class="cas-card-muted mb-0">Kelola akses, pantau user aktif, cek isolir, dan masuk ke halaman aksi tanpa membebani MikroTik dengan tabel besar di dashboard.</p>
+        <div class="cas-hero-actions">
+            <a class="btn btn-primary" href="ppp_users.php">Cari PPPoE</a>
+            <a class="btn btn-success" href="active_users.php">Monitoring Aktif</a>
+            <a class="btn btn-outline-secondary" href="log_aktivitas.php">Audit Log</a>
+        </div>
+    </div>
+    <div class="cas-mini-metric">
+        <div class="cas-command-chip"><span class="cas-command-icon"><?= h($data['total']) ?></span><div><strong>Total Secret</strong><span>Ringkasan dari cache bridge</span></div></div>
+        <div class="cas-command-chip success"><span class="cas-command-icon"><?= h($data['active_total']) ?></span><div><strong>Sedang Online</strong><span>User aktif saat data dibaca</span></div></div>
+        <div class="cas-command-chip danger"><span class="cas-command-icon"><?= h($data['isolir_total']) ?></span><div><strong>Terisolir</strong><span>Profile ISOLIREBILLING</span></div></div>
+    </div>
+</section>
+
 <div class="cas-card cas-card-lg mb-3">
     <form method="POST" class="cas-router-panel">
         <select name="router" class="form-select" required>

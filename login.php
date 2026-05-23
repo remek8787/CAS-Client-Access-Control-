@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login CAS - Client Access Control</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="cas-theme.css?v=20260522-modern1" rel="stylesheet">
+    <link href="cas-theme.css?v=20260523-premium1" rel="stylesheet">
 </head>
 <body>
 <div class="cas-login-shell">
@@ -54,9 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" name="password" class="form-control mb-4" placeholder="Masukkan password" required autocomplete="current-password">
             <button class="btn btn-primary w-100 py-2"><span class="cas-submit-spinner"></span>Masuk ke Control Center</button>
         </form>
-        <div class="text-center mt-4 text-muted small">CAS v1.2 Modern UI · Bridge Mode</div>
+        <div class="cas-login-trust">
+            <span>🛡️ <span><b>Bridge Mode</b> — panel tidak mengubah arsitektur koneksi yang sudah berjalan.</span></span>
+            <span>⚡ <span><b>Cepat untuk operator</b> — masuk, pilih router, eksekusi aksi penting.</span></span>
+            <span>📱 <span><b>Mobile ready</b> — tampilan tetap nyaman saat dipakai dari HP.</span></span>
+        </div>
+        <div class="text-center mt-4 text-muted small">CAS v1.2 Premium UI · Bridge Mode</div>
     </div>
 </div>
-<script src="includes/_loader.js?v=20260522-modern1"></script>
+<script src="includes/_loader.js?v=20260523-premium1"></script>
 </body>
 </html>
